@@ -13,6 +13,7 @@
         }
 		
     ],
+	"minimum-stability": "stable",
     "http-basic": {
         "svn.example.org": {
             "username": "hieu.nguyen",
