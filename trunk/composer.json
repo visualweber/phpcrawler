@@ -2,7 +2,7 @@
     "name": "phpcrawler/phpcrawler",
     "description": "Composer-loadable mirror of the PHPCrawl project",
     "homepage": "http://cuab.de/",
-    
+    "version": "1.0.0",
     "autoload": {
         "classmap": ["src/"]
     },
