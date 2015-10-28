@@ -1,0 +1,25 @@
+{
+    "name": "phpcrawler/phpcrawler",
+    "description": "Composer-loadable mirror of the PHPCrawl project",
+    "homepage": "http://cuab.de/",
+    "version": "0.8.1",
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://svn.visualweber.net/phpcrawler/"
+        },
+		{
+        	"type":"vcs",
+        	"url": "H:\job\xampp\htdocs\products\phpcrawler"
+        }
+    ],
+    "http-basic": {
+        "svn.example.org": {
+            "username": "hieu.nguyen",
+            "password": "Hieu.nguyen"
+        }
+    }
+}
