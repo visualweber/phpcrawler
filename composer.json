@@ -6,7 +6,13 @@
     "autoload": {
         "classmap": ["src/"]
     },
-    
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://svn.visualweber.net/phpcrawler/"
+        }
+		
+    ],
 	"minimum-stability": "stable",
     "http-basic": {
         "svn.example.org": {
