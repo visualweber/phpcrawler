@@ -1,7 +1,7 @@
 {
-    "name": "phpcrawler/phpcrawler",
+    "name": "visualweber/phpcrawler",
     "description": "Composer-loadable mirror of the PHPCrawl project",
-    "homepage": "http://cuab.de/",
+    "homepage": "http://visualweber.com/",
     "autoload": {
         "classmap": ["src/"]
     },
@@ -11,11 +11,5 @@
             "url": "http://svn.visualweber.net/phpcrawler/"
         }
 		
-    ],
-    "http-basic": {
-        "svn.example.org": {
-            "username": "hieu.nguyen",
-            "password": "Hieu.nguyen"
-        }
-    }
+    ]
 }
