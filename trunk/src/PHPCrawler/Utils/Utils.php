@@ -22,7 +22,30 @@ class Utils {
         preg_match_all('!\d+!', $str, $matches);
         return end($matches[0]);
     }
-
+    /**
+     * Remove � character
+     * http://stackoverflow.com/questions/1401317/remove-non-utf8-characters-from-string
+     * 
+     * @param type $string
+     * @return type
+     */
+    public static function remove_special_character($string) {
+        $string = trim($string);
+        $regex = <<<'END'
+/
+  (
+    (?: [\x00-\x7F]                 # single-byte sequences   0xxxxxxx
+    |   [\xC0-\xDF][\x80-\xBF]      # double-byte sequences   110xxxxx 10xxxxxx
+    |   [\xE0-\xEF][\x80-\xBF]{2}   # triple-byte sequences   1110xxxx 10xxxxxx * 2
+    |   [\xF0-\xF7][\x80-\xBF]{3}   # quadruple-byte sequence 11110xxx 10xxxxxx * 3 
+    ){1,100}                        # ...one or more times
+  )
+| .                                 # anything else
+/x
+END;
+        return preg_replace($regex, '$1', $string);
+    }
+    
     /**
      * 
      * @param type $dec
@@ -44,7 +67,7 @@ class Utils {
 
     public static function create_alias($text) {
         $marTViet = array(
-            '&',',', '[', ']', '(', ')', '"', '/', '.', ' ', "à", "á", "ạ", "ả", "ã", "â", "ầ", "ấ", "ậ", "ẩ", "ẫ", "ă",
+            '&', ',', '[', ']', '(', ')', '"', '/', '.', ' ', "à", "á", "ạ", "ả", "ã", "â", "ầ", "ấ", "ậ", "ẩ", "ẫ", "ă",
             "ằ", "ắ", "ặ", "ẳ", "ẵ", "è", "é", "ẹ", "ẻ", "ẽ", "ê", "ề"
             , "ế", "ệ", "ể", "ễ",
             "ì", "í", "ị", "ỉ", "ĩ",
@@ -61,11 +84,11 @@ class Utils {
             , "Ờ", "Ớ", "Ợ", "Ở", "Ỡ",
             "Ù", "Ú", "Ụ", "Ủ", "Ũ", "Ư", "Ừ", "Ứ", "Ự", "Ử", "Ữ",
             "Ỳ", "Ý", "Ỵ", "Ỷ", "Ỹ",
-            "Đ", "́", "̀", "̉",'̣', '̃'
+            "Đ", "́", "̀", "̉", '̣', '̃'
         );
 
         $marKoDau = array(
-            '-','-', '-', '-', '-', '-', '', '', '', '-', "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"
+            '-', '-', '-', '-', '-', '-', '', '', '', '-', "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"
             , "a", "a", "a", "a", "a", "a",
             "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e",
             "i", "i", "i", "i", "i",
@@ -82,11 +105,12 @@ class Utils {
             , "O", "O", "O", "O", "O",
             "U", "U", "U", "U", "U", "U", "U", "U", "U", "U", "U",
             "Y", "Y", "Y", "Y", "Y",
-            "D", '', '', '','',''
+            "D", '', '', '', '', ''
         );
         $alias = str_replace($marTViet, $marKoDau, trim($text));
         return strtolower($alias);
     }
+
     public static function alias($str) {
         $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|À|Á|Ạ|Ả|Ã|Â|A|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", "a", $str);
         $str = preg_replace("/(B)/", "b", $str);
@@ -122,9 +146,10 @@ class Utils {
         $str = str_replace('̉', "", $str);
         $str = str_replace('̣', "", $str);
         $str = str_replace('̃', "", $str);
-		
+
         return $str;
     }
+
     public static function generate_password($length = 8) {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
         $password = substr(str_shuffle($chars), 0, $length);
@@ -176,6 +201,7 @@ class Utils {
         }
         return rtrim($string) . $end_char;
     }
+
 
     /*
      * Convert to safe characters
@@ -262,5 +288,39 @@ class Utils {
 
         return $str;
     }
+    /**
+     * Returns all cookies from the give response-header.
+     *
+     * @param string $header      The response-header
+     * @return array Numeric array containing all cookies as array.
+     */
+    public static function getCookiesFromHeader($header) {
+        $cookies = array();
 
+        $hits = preg_match_all("#[\r\n]set-cookie:(.*)[\r\n]# Ui", $header, $matches);
+
+        if ($hits && $hits != 0) {
+            for ($x = 0; $x < count($matches[1]); $x++) {
+                $cookies[] = $matches[1][$x];
+            }
+        }
+
+        return $cookies;
+    }
+
+    /**
+     * Returns the redirect-URL from the given HTML-header
+     *
+     * @return string The redirect-URL or NULL if not found.
+     */
+    public static function getRedirectURLFromHeader(&$header) {
+        // Get redirect-link from header
+        preg_match("/((?i)location:|content-location:)(.{0,})[\n]/", $header, $match);
+
+        if (isset($match[2])) {
+            $redirect = trim($match[2]);
+            return $redirect;
+        } else
+            return null;
+    }    
 }
