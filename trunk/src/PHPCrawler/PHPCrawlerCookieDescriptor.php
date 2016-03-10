@@ -105,11 +105,9 @@ class PHPCrawlerCookieDescriptor {
         $this->cookie_send_time = PHPCrawlerBenchmark::getmicrotime();
 
         // Expire-date to timetsamp
-        // if ($this->expires != null)
-        //    $this->expire_timestamp = @strtotime($this->expires);
-        // Toan changed here
-        $this->expire_timestamp = strtotime("+1 week");
-        
+        if ($this->expires != null)
+            $this->expire_timestamp = @strtotime($this->expires);
+
         // If domain doesn't start with "." -> add it (see RFC)
         if ($this->domain != null && substr($this->domain, 0, 1) != ".")
             $this->domain = "." . $this->domain;
