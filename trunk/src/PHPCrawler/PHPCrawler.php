@@ -12,6 +12,7 @@
 namespace PHPCrawler;
 
 use PHPCrawler\CookieCache\PHPCrawlerSQLiteCookieCache;
+use PHPCrawler\CookieCache\PHPCrawlerMemoryCookieCache;
 use PHPCrawler\ProcessCommunication\PHPCrawlerProcessHandler;
 use PHPCrawler\ProcessCommunication\PHPCrawlerStatusHandler;
 use PHPCrawler\Enums\PHPCrawlerUrlCacheTypes;
