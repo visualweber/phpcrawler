@@ -8,7 +8,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "http://svn.visualweber.net/phpcrawler/"
+            "url": "ssh://git@git.visualweber.net:1506/viweb-prod/php-crawler.git"
         }
 		
     ]
