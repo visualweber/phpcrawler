@@ -1,0 +1,13 @@
+*.zip
+*.rar
+*.php~
+.svn
+.ansible
+.DS_Store
+composer.lock
+nbproject/
+vendor/
+backend/data/
+webapp/data/
+data/
+library/AppEntity/
