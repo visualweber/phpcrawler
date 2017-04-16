@@ -10,8 +10,8 @@
 namespace PHPCrawler\CookieCache;
 
 use PHPCrawler\PHPCrawlerBenchmark;
-use PHPCrawler\PHPCrawlerURLDescriptor;
-use PHPCrawler\UrlCache\PHPCrawlerURLCacheBase;
+use PHPCrawler\PHPCrawlerUtils;
+use PHPCrawler\PHPCrawlerCookieDescriptor;
 
 class PHPCrawlerMemoryCookieCache extends PHPCrawlerCookieCacheBase {
 
