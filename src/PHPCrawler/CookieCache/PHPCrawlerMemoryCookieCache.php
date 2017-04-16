@@ -9,6 +9,10 @@
 
 namespace PHPCrawler\CookieCache;
 
+use PHPCrawler\PHPCrawlerBenchmark;
+use PHPCrawler\PHPCrawlerURLDescriptor;
+use PHPCrawler\UrlCache\PHPCrawlerURLCacheBase;
+
 class PHPCrawlerMemoryCookieCache extends PHPCrawlerCookieCacheBase {
 
     protected $cookies = array();
