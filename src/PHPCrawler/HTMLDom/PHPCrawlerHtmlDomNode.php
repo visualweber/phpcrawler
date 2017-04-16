@@ -48,14 +48,10 @@ class PHPCrawlerHtmlDomNode {
 
     // clean up memory due to php5 circular references memory leak...
     function clear() {
-        try {
-            $this->dom = null;
-            $this->nodes = null;
-            $this->parent = null;
-            $this->children = null;
-        } catch (LogicException $exc) {
-            echo $exc->getTraceAsString();
-        }
+        $this->dom = null;
+        $this->nodes = null;
+        $this->parent = null;
+        $this->children = null;
     }
 
     // dump node's tree
